@@ -25,7 +25,7 @@ void main() async {
               translator.delegates, // Android + iOS Delegates
           locale: translator.locale, // Active locale
           supportedLocales: translator.locals(),
-          home: Page1()),
+          home: BajesResponsive()),
     ),
   ));
 }
@@ -113,25 +113,30 @@ class _BajesResponsiveState extends State<BajesResponsive> {
     //         ),
     //       );
     //
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(translator.translate('name')),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.language),
-            onPressed: () {
-              translator.setNewLanguage(
-                context,
-                newLanguage: translator.currentLanguage == 'ar' ? 'en' : 'ar',
-                remember: true,
-                restart: true,
-              );
-              //setState(() {});
-            },
-          )
-        ],
+    return Directionality(
+      textDirection: translator.currentLanguage == 'ar'
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(translator.translate('name')),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.language),
+              onPressed: () {
+                translator.setNewLanguage(
+                  context,
+                  newLanguage: translator.currentLanguage == 'ar' ? 'en' : 'ar',
+                  remember: true,
+                  restart: false,
+                );
+                //setState(() {});
+              },
+            )
+          ],
+        ),
+        body: Center(child: Text(translator.translate('name'))),
       ),
-      body: Center(child: Text(translator.translate('name'))),
     );
   }
 }

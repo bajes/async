@@ -14,12 +14,12 @@ class _TodoHomeState extends State<TodoHome> {
   PageController pageController = PageController(initialPage: 0);
 
   int currentIndex = 0;
-  deleteTask(Task task) {
+  void deleteTask(Task task) {
     Repository.tasks.remove(task);
     setState(() {});
   }
 
-  toggleTask(Task task) {
+  void toggleTask(Task task) {
     int taskIndex = Repository.tasks.indexOf(task);
     task.isComplete = !task.isComplete;
     setState(() {});

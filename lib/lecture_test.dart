@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 enum Gender { male, female }
 
@@ -17,7 +18,7 @@ class _LectureTestState extends State<LectureTest> {
   bool isBa = false;
   List<String> certifications = [];
   String result;
-  getCertifications() {
+  String getCertifications() {
     String certifications = '';
     if (this.certifications.isEmpty) {
       return null;
@@ -30,10 +31,39 @@ class _LectureTestState extends State<LectureTest> {
   }
 
   GlobalKey<FormState> formKey = GlobalKey();
-  saveForm() {
+  void saveForm() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
     }
+    if (this.certifications.isEmpty) {
+      openDialoug('text', 'text1', context);
+    } else {
+      formKey.currentState.context;
+    }
+  }
+
+  void openDialoug(String title, String message, BuildContext context) {
+    showOkCancelAlertDialog(
+      context: context,
+      title: title,
+      message: message,
+    );
+    // showDialog<AlertDialog>(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (context) {
+    //       return AlertDialog(
+    //         title: Text(title),
+    //         content: Text(message),
+    //         actions: [
+    //           TextButton(
+    //               onPressed: () {
+    //                 Navigator.of(context).pop();
+    //               },
+    //               child: Text('ok'))
+    //         ],
+    //       );
+    //     });
   }
 
   @override
@@ -102,7 +132,7 @@ class _LectureTestState extends State<LectureTest> {
                           Radio(
                               value: Gender.male,
                               groupValue: gender,
-                              onChanged: (value) {
+                              onChanged: (Gender value) {
                                 this.gender = value;
                                 setState(() {});
                               }),
@@ -114,7 +144,7 @@ class _LectureTestState extends State<LectureTest> {
                           Radio(
                               value: Gender.female,
                               groupValue: gender,
-                              onChanged: (value) {
+                              onChanged: (Gender value) {
                                 this.gender = value;
                                 setState(() {});
                               }),
